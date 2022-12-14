@@ -10,7 +10,7 @@ Terraformのtfstateを保存するS3バケット
 
 ```bash
 PROFILE='hoge'
-AWS_ACCOUNT='218262116969'
+AWS_ACCOUNT='123456789123'
 ENV='production'
 ENV_ABBR='prd'
 NAME='example'

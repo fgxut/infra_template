@@ -2,7 +2,7 @@ terraform {
   required_version = "= 1.3.5"
 
   backend "s3" {
-    bucket = "prd-example-tfstate-218262116969"
+    bucket = "prd-example-tfstate-123456789123"
     key    = "prd-example.tfstate"
     region = "ap-northeast-1"
   }
