@@ -1,0 +1,17 @@
+{
+  "rules": [
+    {
+      "rulePriority": 1,
+      "description": "ECR lifecycle policy for ${RESOURCE_NAME}",
+      "selection": {
+        "tagStatus": "untagged",
+        "countType": "sinceImagePushed",
+        "countUnit": "days",
+        "countNumber": ${DAYS}
+      },
+      "action": {
+        "type": "expire"
+      }
+    }
+  ]
+}
