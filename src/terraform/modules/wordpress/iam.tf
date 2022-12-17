@@ -1,5 +1,6 @@
 # ECS
 ## 1)タスクロール
+
 resource "aws_iam_role" "example_ecs_task_role" {
   name               = "${var.common["env_abbr"]}-${var.common["name"]}-ecs-task-role"
   assume_role_policy = file("${path.module}/assume_role_policy/ecs_task.json")
@@ -9,6 +10,8 @@ resource "aws_iam_role" "example_ecs_task_role" {
     env  = var.common["env"]
   }
 }
+
+### SSM Parameter
 
 resource "aws_iam_policy" "example_ecs_task_role_ssm_parameter" {
   name = "${var.common["env_abbr"]}-${var.common["name"]}-ecs-task-role-ssm-parameter-policy"
@@ -28,6 +31,8 @@ resource "aws_iam_role_policy_attachment" "example_ecs_task_role_ssm_parameter" 
   role       = aws_iam_role.example_ecs_task_role.name
   policy_arn = aws_iam_policy.example_ecs_task_role_ssm_parameter.arn
 }
+
+### S3
 
 resource "aws_iam_policy" "example_ecs_task_role_s3" {
   name = "${var.common["env_abbr"]}-${var.common["name"]}-ecs-task-role-s3-policy"
@@ -49,7 +54,25 @@ resource "aws_iam_role_policy_attachment" "example_ecs_task_role_s3" {
   policy_arn = aws_iam_policy.example_ecs_task_role_s3.arn
 }
 
+### ECS Exec
+
+resource "aws_iam_policy" "example_ecs_task_role_ecs_exec" {
+  name = "${var.common["env_abbr"]}-${var.common["name"]}-ecs-task-role-ecs-exec-policy"
+  policy = file("${path.module}/iam_policy/ecs_task_role_ecs_exec.json")
+
+  tags = {
+    Name = "${var.common["env_abbr"]}-${var.common["name"]}-ecs-task-role-ecs-exec-policy"
+    env  = var.common["env"]
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "example_ecs_task_role_ecs_exec" {
+  role       = aws_iam_role.example_ecs_task_role.name
+  policy_arn = aws_iam_policy.example_ecs_task_role_ecs_exec.arn
+}
+
 ## 2)タスク実行ロール
+
 resource "aws_iam_role" "example_ecs_task_execution_role" {
   name               = "${var.common["env_abbr"]}-${var.common["name"]}-ecs-task-execution-role"
   assume_role_policy = file("${path.module}/assume_role_policy/ecs_task.json")
