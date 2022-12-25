@@ -13,7 +13,7 @@ variable "common" {
 variable "network" {
   type = map(string)
   default = {
-    vpc_cidr_block = "172.0.0.0/16"
+    vpc_cidr_block = "172.16.0.0/16"
   }
 }
 
